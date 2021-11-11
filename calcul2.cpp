@@ -1,6 +1,11 @@
 #include <iostream>
 #include <vector>
 
+void foo(){
+    std::cerr << "le message d'erreur" << std::endl;
+    exit(1); // je termine le programme avec un code d'erreur 1
+}
+
 int main(int argc, char** argv){
     std::vector<int> pile;
     int temp1;
@@ -12,6 +17,9 @@ int main(int argc, char** argv){
             pile.push_back(std::stoi(std::string(a)));
         }
         else if((a =="+")||(a == "x")||(a == "-")||(a == "/")){
+            if(pile.size()<2){
+                foo();
+            }
             temp1 = pile.back();
             pile.pop_back();
             temp2 = pile.back();
@@ -27,7 +35,7 @@ int main(int argc, char** argv){
             }
             else if( a == "/"){
                 if(temp1 == 0){
-                    return EXIT_FAILURE;
+                    foo();
                 }
                 else{
                     pile.push_back(temp2/temp1);
